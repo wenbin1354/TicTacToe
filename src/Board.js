@@ -1,77 +1,58 @@
-// Importing the CSS for the board
 import "./css/board.css";
 
-// Importing the useState hook, useEffect hook and useRef hook
 import { useState, useEffect, useRef } from "react";
 
 const Board = ({ reset, setReset, winner, setWinner }) => {
-	// Creating a turn state, which indicates the current turn
-    // 0 for player 1, 1 for player 2/AI
+	// 0 for player 1, 1 for player 2 or AI(haven't implemented)
 	const [turn, setTurn] = useState(0);
 
-	// Creating a data state, which contains the
-	// current picture of the board
-	const [data, setData] = useState(
-        [
-            "", "", "", 
-            "", "", "", 
-            "", "", ""
-        ]
-    );
+	// current board
+	const [data, setData] = useState(["", "", "", "", "", "", "", "", ""]);
 
-	// Creating a reference for the board
+	// reference for the board
 	const boardRef = useRef(null);
 
-	// Function to draw on the board
+	// draw on the board
 	const draw = (event, index) => {
-		// Draws only if the position is not taken
-		// and winner is not decided yet
+		// Draws iff position not taken and no winner yet
 		if (data[index - 1] === "" && winner === "") {
-			// Draws X if it's player 1's turn else draws O
+			// X if it's p1's turn else O
 			const current = turn === 0 ? "X" : "O";
 
-			// Updating the data state
+			// update
 			data[index - 1] = current;
 
-			// Change the rendered on the board
+			// change the rendered
 			event.target.innerText = current;
 
-			// Switching the turn
+			// change turn
 			setTurn(turn === 0 ? 1 : 0);
 		}
 	};
 
-	// UseEffect hook used to reset the board whenever
-	// a winner is decided
+	//reset if winner decided
 	useEffect(() => {
-		// Clearing the data state
-		setData(
-            [
-                "", "", "", 
-                "", "", "", 
-                "", "", ""
-            ]
-        );
+		setData(["", "", "", "", "", "", "", "", ""]);
 
 		// Getting all the children(cells) of the board
 		const cells = boardRef.current.children;
 
-		// Clearing out the board
+		// clear board
 		for (let i = 0; i < 9; i++) {
 			cells[i].innerText = "";
 		}
 
-		// Resetting the turn to player 0
+		// reset turn
 		setTurn(0);
 
-		// Resetting the winner
+		// reset winner
 		setWinner("");
 		setReset(false);
 	}, [reset, setReset, setWinner]);
 
-	// useEffect hook used to check for a winner
+	// checking winner
 	useEffect(() => {
-		// Checks for the win condition in rows
+		// checking win condition (row)
 		const checkRow = () => {
 			let ans = false;
 			for (let i = 0; i < 9; i += 3) {
@@ -81,7 +62,7 @@ const Board = ({ reset, setReset, winner, setWinner }) => {
 			return ans;
 		};
 
-		// Checks for the win condition in cols
+		// checking win condition (col)
 		const checkCol = () => {
 			let ans = false;
 			for (let i = 0; i < 3; i++) {
@@ -91,7 +72,7 @@ const Board = ({ reset, setReset, winner, setWinner }) => {
 			return ans;
 		};
 
-		// Checks for the win condition in diagonals
+		// checking win condition (diag)
 		const checkDiagonal = () => {
 			return (
 				(data[0] === data[4] && data[0] === data[8] && data[0] !== "") ||
@@ -99,12 +80,12 @@ const Board = ({ reset, setReset, winner, setWinner }) => {
 			);
 		};
 
-		// Checks if at all a win condition is present
+		// check if win condition
 		const checkWin = () => {
 			return checkRow() || checkCol() || checkDiagonal();
 		};
 
-		// Checks for a tie
+		// check for tie
 		const checkTie = () => {
 			let count = 0;
 			data.forEach((cell) => {
@@ -115,11 +96,11 @@ const Board = ({ reset, setReset, winner, setWinner }) => {
 			return count === 9;
 		};
 
-		// Setting the winner in case of a win
+		// set winner
 		if (checkWin()) {
 			setWinner(turn === 0 ? "Player 2 Wins!" : "Player 1 Wins!");
 		} else if (checkTie()) {
-			// Setting the winner to tie in case of a tie
+			// set tie
 			setWinner("It's a Tie!");
 		}
 	});

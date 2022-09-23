@@ -1,6 +1,6 @@
 :root {
     --board-background: none;
-    --border-color: #f6546a;
+    --border-color: #0e33f0;
     --border-thickness: 5px;
 }
   
@@ -20,8 +20,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: whitesmoke;
-    font-family: 'Bellefair', serif;
+    color: rgb(28, 24, 24);
+    font-family: arial, serif;
     font-style: italic;
     font-weight: 700;
     font-size: 6rem;

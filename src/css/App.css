@@ -10,7 +10,7 @@
     flex-direction: column;
     gap: 5vh;
     backdrop-filter: 5px;
-    background-color: #101010;
+    background-color: #f2f0f0;
 }
   
 .winner {
@@ -28,7 +28,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -70%);
-    background-color: rgba(195, 141, 158, 0.863);
+    background-color: rgba(20, 18, 20, 0.863);
     backdrop-filter: 5px;
     padding: .5rem;
     padding-bottom: 1rem;

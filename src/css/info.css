@@ -3,11 +3,11 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    color: whitesmoke;
+    color: rgb(13, 13, 13);
 }
   
 .player {
-    border: 2px solid #f6546a;
+    border: 2px solid #02903f;
     border-radius: 5%;
     padding: .5rem 0;
     display: flex;
